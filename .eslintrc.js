@@ -1,32 +1,49 @@
 module.exports = {
-  env: {
-    browser: true,
-    node: true,
-    es2021: true,
-    jest: true
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest/globals": true
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended'
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
   ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    ecmaVersion: 'latest',
-    sourceType: 'module'
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
-  plugins: ['react'],
-  rules: {
-    'no-console': 'warn',
-    'react/prop-types': 'off',
-    'react/react-in-jsx-scope': 'off',
-    'semi': ['error', 'never'],
-    'quotes': ['error', 'single']
-  },
-  settings: {
-    react: {
-      version: 'detect'
-    }
+  "plugins": [
+    "react", "jest"
+  ],
+  "rules": {
+    "indent": [
+      "error",
+        2
+      ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "eqeqeq": "error",
+    "no-trailing-spaces": "error",
+    "object-curly-spacing": [
+      "error", "always"
+    ],
+    "arrow-spacing": [
+      "error", { "before": true, "after": true }
+    ],
+    "no-console": "error",
+    "react/prop-types": 0
   }
 }
