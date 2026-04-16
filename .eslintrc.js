@@ -1,8 +1,9 @@
 module.exports = {
   env: {
     browser: true,
-    node: true,    // ← ADD THIS LINE
+    node: true,
     es2021: true,
+    jest: true
   },
   extends: [
     'eslint:recommended',
@@ -18,11 +19,14 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'no-console': 'warn',
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'semi': ['error', 'never'],
+    'quotes': ['error', 'single']
   },
   settings: {
     react: {
       version: 'detect'
     }
   }
-};
+}
