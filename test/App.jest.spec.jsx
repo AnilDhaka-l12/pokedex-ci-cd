@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import axios from 'axios'
+import '@testing-library/jest-dom'
 import App from '../src/App'
 
 jest.mock('axios')
@@ -16,7 +17,7 @@ describe('<App />', () => {
       { id: 1, name: 'bulbasaur', type: ['grass'], abilities: ['overgrow'] },
       { id: 2, name: 'ivysaur', type: ['grass'], abilities: ['overgrow'] }
     ]
-    
+
     axios.get.mockResolvedValueOnce({ data: mockPokemonList })
 
     render(
