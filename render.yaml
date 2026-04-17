@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pokedex-ci-cd
+    runtime: node
+    repo: https://github.com/AnilDhaka-l12/pokedex-ci-cd
+    buildCommand: ./build.sh
+    startCommand: ./start.sh
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+    healthCheckPath: /health

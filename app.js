@@ -25,5 +25,12 @@ app.get('/api/pokemon/:name', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
+// Add this before the existing routes
+app.get('/health', (req, res) => {
+  res.send('ok')
+})
+app.get('/version', (req, res) => {
+  res.send('1')
+})
 
 module.exports = app
