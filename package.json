@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "description": "Pokedex app for Full Stack Open CI/CD course",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "start-prod": "NODE_ENV=production node index.js",
-    "dev": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "test": "jest --testPathIgnorePatterns=e2e-tests",
-    "test:e2e": "playwright test",
-    "lint": "eslint . --ext .js,.jsx",
-    "eslint": "eslint . --ext .js,.jsx"
-  },
+ "scripts": {
+  "start": "node index.js",
+  "dev": "webpack serve --mode development",
+  "build": "webpack --mode production",
+  "test": "jest --testPathIgnorePatterns=e2e-tests",
+  "test:e2e": "playwright test",
+  "lint": "eslint . --ext .js,.jsx"
+},
   "jest": {
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": [
