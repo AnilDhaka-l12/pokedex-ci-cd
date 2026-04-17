@@ -1,6 +1,9 @@
 #!/bin/bash
 
 echo "Starting the application..."
+echo "Current directory: $(pwd)"
+echo "Files in current directory:"
+ls -la
 
-# Start the Express server
+echo "Starting server..."
 node index.js

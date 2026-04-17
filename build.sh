@@ -2,6 +2,9 @@
 
 echo "Building the application..."
 
+# Clean previous build
+rm -rf dist
+
 # Install dependencies
 npm install
 
@@ -9,3 +12,5 @@ npm install
 npm run build
 
 echo "Build completed!"
+echo "Dist directory contents:"
+ls -la dist/
