@@ -22,14 +22,12 @@ const App = () => {
 
   const handlePokemonClick = async (pokemonName) => {
     try {
-      console.log('Fetching:', pokemonName)
       const response = await axios.get(`/api/pokemon/${pokemonName}`)
-      console.log('Response:', response.data)
       setSelectedPokemon(response.data)
     } catch (err) {
       console.error('Error fetching pokemon details:', err)
-      setSelectedPokemon({ 
-        name: pokemonName, 
+      setSelectedPokemon({
+        name: pokemonName,
         abilities: ['Unable to load abilities'],
         error: true
       })
@@ -44,12 +42,12 @@ const App = () => {
       <h1>Pokédex</h1>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
         {pokemonList.map(pokemon => (
-          <div 
-            key={pokemon.id} 
+          <div
+            key={pokemon.id}
             onClick={() => handlePokemonClick(pokemon.name)}
-            style={{ 
-              border: '1px solid #ccc', 
-              padding: '10px', 
+            style={{
+              border: '1px solid #ccc',
+              padding: '10px',
               cursor: 'pointer',
               backgroundColor: '#f0f0f0',
               borderRadius: '5px'
@@ -59,7 +57,7 @@ const App = () => {
           </div>
         ))}
       </div>
-      
+
       {selectedPokemon && !selectedPokemon.error && (
         <div style={{ marginTop: '20px', padding: '20px', border: '2px solid #333', borderRadius: '10px' }}>
           <h2>{selectedPokemon.name}</h2>
@@ -72,7 +70,7 @@ const App = () => {
           <button onClick={() => setSelectedPokemon(null)}>Close</button>
         </div>
       )}
-      
+
       {selectedPokemon && selectedPokemon.error && (
         <div style={{ marginTop: '20px', padding: '20px', border: '2px solid red', borderRadius: '10px' }}>
           <h2>{selectedPokemon.name}</h2>
@@ -80,7 +78,7 @@ const App = () => {
           <button onClick={() => setSelectedPokemon(null)}>Close</button>
         </div>
       )}
-      
+
       <footer>
         Pokémon and Pokémon character names are trademarks of Nintendo.
       </footer>

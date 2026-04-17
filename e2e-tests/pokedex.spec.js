@@ -11,16 +11,8 @@ test.describe('Pokedex', () => {
   test('can navigate to individual pokemon page', async ({ page }) => {
     await page.goto('http://localhost:8080')
     await page.waitForTimeout(2000)
-    
-    // Click on bulbasaur
     await page.click('text=bulbasaur')
-    await page.waitForTimeout(2000)
-    
-    // Log the page content to see what's there
-    const content = await page.content()
-    console.log('Page content after click:', content.substring(0, 500))
-    
-    // Try to find abilities
+    await page.waitForTimeout(1000)
     await expect(page.getByText('overgrow')).toBeVisible({ timeout: 10000 })
   })
 })
