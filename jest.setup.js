@@ -1,2 +1,1 @@
-// Simple setup without complex imports
-global.console = console
+import '@testing-library/jest-dom'

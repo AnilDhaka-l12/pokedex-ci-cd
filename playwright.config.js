@@ -10,13 +10,6 @@ module.exports = defineConfig({
     baseURL: 'http://localhost:5001',
     headless: true,
   },
-  // Comment out webServer for GitHub Actions - we'll use the build server instead
-  // webServer: {
-  //   command: 'npm start',
-  //   port: 5001,
-  //   timeout: 120000,
-  //   reuseExistingServer: !process.env.CI,
-  // },
   projects: [
     {
       name: 'chromium',

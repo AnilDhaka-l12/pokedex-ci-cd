@@ -27,7 +27,6 @@ describe('<App />', () => {
     )
 
     await waitFor(() => {
-      // Check for capitalized name as displayed in the UI
       expect(screen.getByText('Bulbasaur')).toBeInTheDocument()
     })
     expect(axios.get).toHaveBeenCalledWith('/api/pokemon')

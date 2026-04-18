@@ -1,44 +1,48 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-
-// Complete Pokemon data with images - load from pokemon.json
 const pokemon = require('./pokemon.json')
 
-console.log(`Loaded ${pokemon.length} Pokemon with images`)
+// Log all requests for debugging
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`)
+  next()
+})
 
-// API ROUTES - MUST COME FIRST
+// API routes - MUST come BEFORE static files
 app.get('/api/pokemon', (req, res) => {
-  console.log('GET /api/pokemon')
+  console.log('Sending all Pokemon')
   res.json(pokemon)
 })
 
 app.get('/api/pokemon/:name', (req, res) => {
   const found = pokemon.find(p => p.name === req.params.name)
   if (found) {
+    console.log(`Sending ${req.params.name}`)
     res.json(found)
   } else {
     res.status(404).json({ error: 'Not found' })
   }
 })
 
-// Health check (required by exercise)
+// Health check
 app.get('/health', (req, res) => {
-  console.log('GET /health')
+  console.log('Health check')
   res.send('ok')
 })
 
-// Version endpoint
+// Version
 app.get('/version', (req, res) => {
-  console.log('GET /version')
+  console.log('Version check')
   res.send('28')
 })
 
-// STATIC FILES - AFTER API ROUTES
+// Serve static files from dist directory
 app.use(express.static(path.join(__dirname, 'dist')))
 
-// CATCH ALL - MUST BE LAST
+// For any other request, serve index.html
 app.get('*', (req, res) => {
+  console.log('Serving index.html')
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 

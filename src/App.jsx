@@ -14,7 +14,7 @@ const App = () => {
         setLoading(false)
       })
       .catch(err => {
-        console.error('Error fetching pokemon list:', err)
+        console.error('Error:', err)
         setError(err.message)
         setLoading(false)
       })
@@ -25,39 +25,39 @@ const App = () => {
       const response = await axios.get(`/api/pokemon/${pokemonName}`)
       setSelectedPokemon(response.data)
     } catch (err) {
-      console.error('Error fetching pokemon details:', err)
-      setSelectedPokemon({
-        name: pokemonName,
-        abilities: ['Unable to load abilities'],
-        error: true
-      })
+      console.error('Error fetching details:', err)
     }
   }
 
-  if (loading) return <div>Loading Pokemon...</div>
-  if (error) return <div data-testid="error">Error: {error}</div>
+  const closeModal = () => {
+    setSelectedPokemon(null)
+  }
+
+  if (loading) return <div style={{ textAlign: 'center', padding: '50px' }}>Loading Pokemon...</div>
+  if (error) return <div data-testid="error" style={{ textAlign: 'center', padding: '50px', color: 'red' }}>Error: {error}</div>
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1 style={{ textAlign: 'center' }}>Pokédex</h1>
+      <h1 style={{ textAlign: 'center', color: '#333' }}>Pokédex</h1>
+
+      {/* Pokemon Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
-        gap: '20px'
+        gap: '20px',
+        marginTop: '20px'
       }}>
         {pokemonList.map(pokemon => (
           <div
             key={pokemon.id}
             onClick={() => handlePokemonClick(pokemon.name)}
             style={{
-              border: '1px solid #ccc',
+              border: '1px solid #ddd',
               padding: '15px',
-              cursor: 'pointer',
-              backgroundColor: '#f9f9f9',
               borderRadius: '10px',
               textAlign: 'center',
-              transition: 'transform 0.2s',
-              hover: { transform: 'scale(1.05)' }
+              cursor: 'pointer',
+              backgroundColor: '#f9f9f9'
             }}
           >
             {pokemon.image && (
@@ -77,49 +77,69 @@ const App = () => {
         ))}
       </div>
 
-      {selectedPokemon && !selectedPokemon.error && (
-        <div style={{
-          marginTop: '30px',
-          padding: '20px',
-          border: '2px solid #333',
-          borderRadius: '10px',
-          backgroundColor: '#f0f0f0',
-          textAlign: 'center'
-        }}>
-          {selectedPokemon.image && (
-            <img
-              src={selectedPokemon.image}
-              alt={selectedPokemon.name}
-              style={{ width: '150px', height: '150px' }}
-            />
-          )}
-          <h2>{selectedPokemon.name.charAt(0).toUpperCase() + selectedPokemon.name.slice(1)}</h2>
-          <h3>Abilities:</h3>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {selectedPokemon.abilities && selectedPokemon.abilities.map(ability => (
-              <li key={ability} style={{ display: 'inline-block', margin: '5px', padding: '5px 10px', backgroundColor: '#ddd', borderRadius: '5px' }}>
-                {ability}
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={() => setSelectedPokemon(null)}
-            style={{ marginTop: '10px', padding: '8px 16px', cursor: 'pointer' }}
+      {/* Modal Popup */}
+      {selectedPokemon && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1000
+          }}
+          onClick={closeModal}
+        >
+          <div
+            style={{
+              backgroundColor: 'white',
+              padding: '30px',
+              borderRadius: '15px',
+              maxWidth: '400px',
+              width: '90%',
+              textAlign: 'center'
+            }}
+            onClick={(e) => e.stopPropagation()}
           >
-            Close
-          </button>
+            <h2>{selectedPokemon.name.charAt(0).toUpperCase() + selectedPokemon.name.slice(1)}</h2>
+            {selectedPokemon.image && (
+              <img
+                src={selectedPokemon.image}
+                alt={selectedPokemon.name}
+                style={{ width: '150px', height: '150px' }}
+              />
+            )}
+            <h3>Abilities:</h3>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {selectedPokemon.abilities.map((ability, index) => (
+                <li key={index} style={{ display: 'inline-block', margin: '5px', padding: '5px 15px', backgroundColor: '#007bff', color: 'white', borderRadius: '20px' }}>
+                  {ability}
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={closeModal}
+              style={{
+                marginTop: '20px',
+                padding: '10px 25px',
+                backgroundColor: '#dc3545',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer'
+              }}
+            >
+              Close
+            </button>
+          </div>
         </div>
       )}
 
-      {selectedPokemon && selectedPokemon.error && (
-        <div style={{ marginTop: '20px', padding: '20px', border: '2px solid red', borderRadius: '10px' }}>
-          <h2>{selectedPokemon.name}</h2>
-          <p>Could not load abilities. Please check the console.</p>
-          <button onClick={() => setSelectedPokemon(null)}>Close</button>
-        </div>
-      )}
-
-      <footer style={{ textAlign: 'center', marginTop: '30px', padding: '20px', color: '#666' }}>
+      <footer style={{ textAlign: 'center', marginTop: '40px', padding: '20px', color: '#999' }}>
         Pokémon and Pokémon character names are trademarks of Nintendo.
       </footer>
     </div>
