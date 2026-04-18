@@ -40,18 +40,18 @@ const App = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h1 style={{ textAlign: 'center' }}>Pokédex</h1>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', 
-        gap: '20px' 
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+        gap: '20px'
       }}>
         {pokemonList.map(pokemon => (
-          <div 
-            key={pokemon.id} 
+          <div
+            key={pokemon.id}
             onClick={() => handlePokemonClick(pokemon.name)}
-            style={{ 
-              border: '1px solid #ccc', 
-              padding: '15px', 
+            style={{
+              border: '1px solid #ccc',
+              padding: '15px',
               cursor: 'pointer',
               backgroundColor: '#f9f9f9',
               borderRadius: '10px',
@@ -61,8 +61,8 @@ const App = () => {
             }}
           >
             {pokemon.image && (
-              <img 
-                src={pokemon.image} 
+              <img
+                src={pokemon.image}
                 alt={pokemon.name}
                 style={{ width: '100px', height: '100px' }}
               />
@@ -78,17 +78,17 @@ const App = () => {
       </div>
 
       {selectedPokemon && !selectedPokemon.error && (
-        <div style={{ 
-          marginTop: '30px', 
-          padding: '20px', 
-          border: '2px solid #333', 
+        <div style={{
+          marginTop: '30px',
+          padding: '20px',
+          border: '2px solid #333',
           borderRadius: '10px',
           backgroundColor: '#f0f0f0',
           textAlign: 'center'
         }}>
           {selectedPokemon.image && (
-            <img 
-              src={selectedPokemon.image} 
+            <img
+              src={selectedPokemon.image}
               alt={selectedPokemon.name}
               style={{ width: '150px', height: '150px' }}
             />
@@ -102,7 +102,7 @@ const App = () => {
               </li>
             ))}
           </ul>
-          <button 
+          <button
             onClick={() => setSelectedPokemon(null)}
             style={{ marginTop: '10px', padding: '8px 16px', cursor: 'pointer' }}
           >
