@@ -17,30 +17,43 @@ const pokemon = [
   { id: 151, name: 'mew', type: ['psychic'], abilities: ['synchronize'] }
 ]
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'dist')))
-
-// API routes
+// =============================================
+// API ROUTES - MUST COME FIRST
+// =============================================
 app.get('/api/pokemon', (req, res) => {
+  console.log('GET /api/pokemon')
   res.json(pokemon)
 })
 
 app.get('/api/pokemon/:name', (req, res) => {
   const found = pokemon.find(p => p.name === req.params.name)
-  found ? res.json(found) : res.status(404).json({ error: 'Not found' })
+  if (found) {
+    res.json(found)
+  } else {
+    res.status(404).json({ error: 'Not found' })
+  }
 })
 
 // Health check (required by exercise)
 app.get('/health', (req, res) => {
+  console.log('GET /health')
   res.send('ok')
 })
 
 // Version endpoint
 app.get('/version', (req, res) => {
-  res.send('1.0.0')
+  console.log('GET /version')
+  res.send('28')
 })
 
-// Catch all - serve React app
+// =============================================
+// STATIC FILES - AFTER API ROUTES
+// =============================================
+app.use(express.static(path.join(__dirname, 'dist')))
+
+// =============================================
+// CATCH ALL - MUST BE LAST
+// =============================================
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
