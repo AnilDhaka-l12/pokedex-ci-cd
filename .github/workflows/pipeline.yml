@@ -33,10 +33,12 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Start server
+      - name: Start server in background
         run: |
-          npm start &
-          sleep 10
+          node index.js &
+          sleep 5
+          curl http://localhost:5001/health || echo "Server not ready yet"
+          sleep 5
 
       - name: Run E2E tests
         run: npm run test:e2e
