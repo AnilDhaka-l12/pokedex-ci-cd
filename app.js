@@ -6,7 +6,7 @@ const path = require('path')
 // Serve static files from dist
 app.use(express.static(path.join(__dirname, 'dist')))
 
-// API routes
+// API routes - MUST come BEFORE the catch-all route
 app.get('/api/pokemon', (req, res) => {
   console.log('GET /api/pokemon - returning', pokemon.length, 'pokemon')
   res.json(pokemon)
@@ -32,10 +32,10 @@ app.get('/health', (req, res) => {
 // Version endpoint
 app.get('/version', (req, res) => {
   console.log('Version check called')
-  res.send('28')
+  res.send('27')
 })
 
-// Catch-all route for React Router - must be LAST
+// IMPORTANT: This catch-all route must be LAST!
 app.get('*', (req, res) => {
   console.log('Serving index.html for:', req.url)
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
