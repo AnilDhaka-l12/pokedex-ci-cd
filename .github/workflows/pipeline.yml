@@ -43,5 +43,4 @@ jobs:
       - name: Run E2E tests
         run: npm run test:e2e
 
-      - name: Deploy to Render
-        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+     
