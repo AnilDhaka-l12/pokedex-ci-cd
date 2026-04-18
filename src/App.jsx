@@ -38,36 +38,76 @@ const App = () => {
   if (error) return <div data-testid="error">Error: {error}</div>
 
   return (
-    <div>
-      <h1>Pokédex</h1>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
+    <div style={{ padding: '20px' }}>
+      <h1 style={{ textAlign: 'center' }}>Pokédex</h1>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', 
+        gap: '20px' 
+      }}>
         {pokemonList.map(pokemon => (
-          <div
-            key={pokemon.id}
+          <div 
+            key={pokemon.id} 
             onClick={() => handlePokemonClick(pokemon.name)}
-            style={{
-              border: '1px solid #ccc',
-              padding: '10px',
+            style={{ 
+              border: '1px solid #ccc', 
+              padding: '15px', 
               cursor: 'pointer',
-              backgroundColor: '#f0f0f0',
-              borderRadius: '5px'
+              backgroundColor: '#f9f9f9',
+              borderRadius: '10px',
+              textAlign: 'center',
+              transition: 'transform 0.2s',
+              hover: { transform: 'scale(1.05)' }
             }}
           >
-            <strong>{pokemon.name}</strong>
+            {pokemon.image && (
+              <img 
+                src={pokemon.image} 
+                alt={pokemon.name}
+                style={{ width: '100px', height: '100px' }}
+              />
+            )}
+            <strong style={{ display: 'block', marginTop: '10px' }}>
+              {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+            </strong>
+            <small style={{ color: '#666' }}>
+              Type: {pokemon.type.join(', ')}
+            </small>
           </div>
         ))}
       </div>
 
       {selectedPokemon && !selectedPokemon.error && (
-        <div style={{ marginTop: '20px', padding: '20px', border: '2px solid #333', borderRadius: '10px' }}>
-          <h2>{selectedPokemon.name}</h2>
+        <div style={{ 
+          marginTop: '30px', 
+          padding: '20px', 
+          border: '2px solid #333', 
+          borderRadius: '10px',
+          backgroundColor: '#f0f0f0',
+          textAlign: 'center'
+        }}>
+          {selectedPokemon.image && (
+            <img 
+              src={selectedPokemon.image} 
+              alt={selectedPokemon.name}
+              style={{ width: '150px', height: '150px' }}
+            />
+          )}
+          <h2>{selectedPokemon.name.charAt(0).toUpperCase() + selectedPokemon.name.slice(1)}</h2>
           <h3>Abilities:</h3>
-          <ul>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
             {selectedPokemon.abilities && selectedPokemon.abilities.map(ability => (
-              <li key={ability}>{ability}</li>
+              <li key={ability} style={{ display: 'inline-block', margin: '5px', padding: '5px 10px', backgroundColor: '#ddd', borderRadius: '5px' }}>
+                {ability}
+              </li>
             ))}
           </ul>
-          <button onClick={() => setSelectedPokemon(null)}>Close</button>
+          <button 
+            onClick={() => setSelectedPokemon(null)}
+            style={{ marginTop: '10px', padding: '8px 16px', cursor: 'pointer' }}
+          >
+            Close
+          </button>
         </div>
       )}
 
@@ -79,7 +119,7 @@ const App = () => {
         </div>
       )}
 
-      <footer>
+      <footer style={{ textAlign: 'center', marginTop: '30px', padding: '20px', color: '#666' }}>
         Pokémon and Pokémon character names are trademarks of Nintendo.
       </footer>
     </div>
