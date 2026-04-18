@@ -3,6 +3,14 @@ const app = express()
 const pokemon = require('./pokemon.json')
 const path = require('path')
 
+app.get('/test', (req, res) => {
+  res.json({ message: 'Test endpoint works!', time: new Date().toISOString() })
+})
+
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API test endpoint works!' })
+})
+
 // Serve static files from dist
 app.use(express.static(path.join(__dirname, 'dist')))
 
